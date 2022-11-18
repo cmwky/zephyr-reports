@@ -1,13 +1,11 @@
-## Welcome!
-
-This repo is a C#/.NET solution for building out custom ZephyrScale-Jira reports.
+## ZephyrScale Traceability Matrix Report
 
 ---
 
 ### The Problem
 
-ZephyrScale offers some out-of-box reporting, however, in many cases these reports are lazy loaded, which makes it difficult to actually use them. Additionally, ZephyrScale doesn't provide the ability to export these reports.
+ZephyrScale doesn't offer the ability to export their Traceability Matrix report.
 
 ### Solution
 
-Create a desktop application that consumes both ZephyrScale and Jira APIs to reconstruct these reports and then export to Excel.
+Create a .NET desktop app that integrates with Jira API and ZephyrScale API to collect test case coverage data and export to `.xlsx`.
