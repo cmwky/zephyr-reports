@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <appSettings>
+    <add key="ZephyrScaleApiKey" value="" />
+    <add key="JiraUserEmail" value="" />
+    <add key="JiraApiToken" value="" />
+  </appSettings>
+</configuration>
