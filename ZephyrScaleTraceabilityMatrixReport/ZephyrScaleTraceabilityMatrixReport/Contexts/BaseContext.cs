@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 {
     internal class BaseContext
     {
-        public HttpClient httpClient { get; set; }
-        public HttpRequestMessage request { get; set; }
+        public HttpClient httpClient { get; }
+        public HttpRequestMessage? request { get; set; }
 
         public BaseContext()
         {

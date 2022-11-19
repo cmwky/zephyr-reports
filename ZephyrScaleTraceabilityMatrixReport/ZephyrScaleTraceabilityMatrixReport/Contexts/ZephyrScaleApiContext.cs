@@ -1,27 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 {
     internal class ZephyrScaleApiContext : BaseContext
     {
-        private readonly string baseUrl = "https://api.zephyrsacle.smartbear.com/v2";
+        private readonly string? baseUrl;
         private readonly string? apiKey;
 
         public ZephyrScaleApiContext()
         {
-            if (ConfigurationManager.AppSettings["ZephyrScaleApiKey"] != null)
-            {
-                this.apiKey = ConfigurationManager.AppSettings["ZephyrScaleApiKey"];
-            }
-            else 
-            {
-                throw new ConfigurationErrorsException("ZephyrScaleApiKey must be provided in App.config file. Aborting execution.");
-            }
+
         }
 
         public string GetTestCase(string testCaseKey)

@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <appSettings>
+    <!--ZephyrScale-->
+    <add key="ZephyrScaleApiBaseUrl" value="" />
     <add key="ZephyrScaleApiKey" value="" />
+
+    <!--Jira-->
+    <add key="JiraApiBaseUrl" value="" />
     <add key="JiraUserEmail" value="" />
     <add key="JiraApiToken" value="" />
   </appSettings>

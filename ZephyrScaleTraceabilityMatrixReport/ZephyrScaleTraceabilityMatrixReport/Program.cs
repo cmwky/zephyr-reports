@@ -1,5 +1,7 @@
-﻿using System.Configuration;
-using System.Collections.Specialized;
+﻿using ZephyrScaleTraceabilityMatrixReport.Contexts;
+using ZephyrScaleTraceabilityMatrixReport.Helpers;
 
-Console.WriteLine("Generating ZephyrScale-Jira test coverage traceability matrix report...");
+HelperClass.ValidateAppConfig();
 
+JiraApiContext jiraApi = new JiraApiContext();
+jiraApi.GetIssue("AUTO-2");
