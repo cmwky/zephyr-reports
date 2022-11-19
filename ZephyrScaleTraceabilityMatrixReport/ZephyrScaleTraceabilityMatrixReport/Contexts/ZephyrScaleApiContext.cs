@@ -9,7 +9,8 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 
         public ZephyrScaleApiContext()
         {
-
+            this.baseUrl = ConfigurationManager.AppSettings["ZephyrScaleApiBaseUrl"];
+            this.apiKey = ConfigurationManager.AppSettings["ZephyrScaleApiKey"];
         }
 
         public string GetTestCase(string testCaseKey)
@@ -24,9 +25,9 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
             return json;
         }
 
-        public string GetAllTestCases(string projectKey, string maxResults = "maxResults=200", string startAt = "startAt=0")
+        public string GetTestCases(string projectKey, string maxResults = "100", string startAt = "0")
         {
-            string resource = $"{this.baseUrl}/testcases?{projectKey}&{maxResults}&{startAt}";
+            string resource = $"{this.baseUrl}/testcases?projectKey={projectKey}&maxResults={maxResults}&startAt={startAt}";
             HttpMethod method = HttpMethod.Get;
 
             base.GenerateHttpRequestMessage(resource, method);
