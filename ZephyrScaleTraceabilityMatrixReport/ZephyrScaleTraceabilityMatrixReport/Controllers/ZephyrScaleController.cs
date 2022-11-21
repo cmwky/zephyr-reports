@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Web.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Contexts;
 using ZephyrScaleTraceabilityMatrixReport.Models;
@@ -12,15 +13,13 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
         public List<TestCase> GetTestCases(string projectKey)
         {
             string testCases = zephyrScaleContext.GetTestCases(projectKey);
-
-            string serializedTestCases = JsonConvert.SerializeObject(testCases);
-            dynamic decodedTestCases = Json.Decode(serializedTestCases);
+            dynamic decodedTestCases = JObject.Parse(testCases);
 
             var testCasesValues = decodedTestCases.values;
 
             List<TestCase> testCaseCollection = new();
 
-            foreach(TestCase testCase in testCasesValues)
+            foreach(var testCase in testCasesValues)
             {
                 string serializedTestCase = JsonConvert.SerializeObject(testCase);
                 TestCase testCaseObj = JsonConvert.DeserializeObject<TestCase>(serializedTestCase);  
