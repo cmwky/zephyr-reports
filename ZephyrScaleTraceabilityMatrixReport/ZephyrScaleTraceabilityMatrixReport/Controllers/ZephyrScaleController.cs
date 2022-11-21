@@ -7,17 +7,18 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 {
     internal class ZephyrScaleController
     {
-        private ZephyrScaleApiContext zephyrScaleContext = new ZephyrScaleApiContext();
+        private ZephyrScaleApiContext zephyrScaleContext = new();
 
         public List<TestCase> GetTestCases(string projectKey)
         {
             string testCases = zephyrScaleContext.GetTestCases(projectKey);
 
-            dynamic decodedTestCases = Json.Decode(testCases);
+            string serializedTestCases = JsonConvert.SerializeObject(testCases);
+            dynamic decodedTestCases = Json.Decode(serializedTestCases);
 
             var testCasesValues = decodedTestCases.values;
 
-            List<TestCase> testCaseCollection = new List<TestCase>();
+            List<TestCase> testCaseCollection = new();
 
             foreach(TestCase testCase in testCasesValues)
             {

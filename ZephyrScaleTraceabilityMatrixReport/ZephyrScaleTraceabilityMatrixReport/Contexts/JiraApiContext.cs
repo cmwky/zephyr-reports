@@ -31,11 +31,11 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
             return json;
         }
 
-        public List<string> SearchIssueUsingJqlFilter(string jql)
+        public List<string> GetIssuesUsingJql(string jql)
         {
             string resource = $"{this.baseUrl}/search";
 
-            List<string> response = new List<string>();
+            List<string> response = new();
 
             //need to follow up on this
             for (int i = 0; i < 10; i++)
@@ -50,7 +50,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
                 };
 
                 string jsonBody = JsonConvert.SerializeObject(requestBodies);
-                StringContent requestbody = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+                StringContent requestbody = new(jsonBody, Encoding.UTF8, "application/json");
 
                 base.GenerateHttpRequestMessage(resource, method, requestbody);
                 this.AddAuthToHttpRequestMessage();
@@ -65,8 +65,6 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
         public override void AddAuthToHttpRequestMessage()
         {
             base.request?.Headers.Add("Authorization", "Basic " + this.encodedBasicAuth);
-            base.request?.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
         }
     }
 }

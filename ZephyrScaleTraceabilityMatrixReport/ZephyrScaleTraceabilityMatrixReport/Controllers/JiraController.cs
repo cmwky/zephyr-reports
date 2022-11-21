@@ -9,10 +9,10 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
     {
         private JiraApiContext JiraApiContext { get; set; }
 
-        public List<string> GetJiraIssueKeysUsingJqlFilter(string jql)
+        public List<string> GetJiraIssueKeysUsingJql(string jql)
         {
-            List<string> jiraIssues = JiraApiContext.SearchIssueUsingJqlFilter(jql);
-            List<string> keys = new List<string>();
+            List<string> jiraIssues = JiraApiContext.GetIssuesUsingJql(jql);
+            List<string> keys = new();
 
             foreach(string issue in jiraIssues)
             {
@@ -30,7 +30,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 
         public List<JiraIssue> GetJiraIssuesFromLinks(Links links)
         {
-            List<JiraIssue> jiraIssues = new List<JiraIssue>();
+            List<JiraIssue> jiraIssues = new();
 
             foreach(LinkedIssue linkedIssue in links.issues)
             {

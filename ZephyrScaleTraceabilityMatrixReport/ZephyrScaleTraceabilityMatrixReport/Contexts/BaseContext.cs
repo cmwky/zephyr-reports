@@ -8,7 +8,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 
         public BaseContext()
         {
-            this.httpClient = new HttpClient();
+            this.httpClient = new();
         }
 
         public void GenerateHttpRequestMessage(string resource, HttpMethod method, StringContent? body = null)
@@ -20,7 +20,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
                 this.request.Content = body;
             }
 
-            this.request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+            this.request.Headers.Accept.Add(new("application/json"));
 
             return;
         }
