@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Web.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Contexts;
 using ZephyrScaleTraceabilityMatrixReport.Models;
@@ -7,7 +8,12 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 {
     internal class JiraController
     {
-        private JiraApiContext JiraApiContext { get; set; }
+        private JiraApiContext JiraApiContext;
+
+        public JiraController()
+        {
+            this.JiraApiContext = new();
+        }
 
         public List<string> GetJiraIssueKeysUsingJql(string jql)
         {
@@ -16,7 +22,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 
             foreach(string issue in jiraIssues)
             {
-                dynamic decodedIssue = Json.Decode(issue);
+                dynamic decodedIssue = JObject.Parse(issue);
                 var issues = decodedIssue.issues;
 
                 foreach(var i in issues)
@@ -35,8 +41,8 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
             foreach(LinkedIssue linkedIssue in links.issues)
             {
                 string issue = JiraApiContext.GetIssue(linkedIssue.issueId.ToString());
-                dynamic decodedIssue = Json.Decode(issue);
-                JiraIssue serializedIssue = JsonConvert.DeserializeObject<JiraIssue>(decodedIssue);
+                string parsedIssue = JObject.Parse(issue).ToString();
+                JiraIssue serializedIssue = JsonConvert.DeserializeObject<JiraIssue>(parsedIssue);
                 jiraIssues.Add(serializedIssue);
             }
 
