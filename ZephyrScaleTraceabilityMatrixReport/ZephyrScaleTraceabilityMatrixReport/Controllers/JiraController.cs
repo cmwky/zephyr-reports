@@ -17,18 +17,14 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 
         public List<string> GetJiraIssueKeysUsingJql(string jql)
         {
-            List<string> jiraIssues = JiraApiContext.GetIssuesUsingJql(jql);
+            string jiraIssues = JiraApiContext.GetIssuesUsingJql(jql);
             List<string> keys = new();
 
-            foreach(string issue in jiraIssues)
-            {
-                dynamic decodedIssue = JObject.Parse(issue);
-                var issues = decodedIssue.issues;
+            var deserializedJiraIssues = JsonConvert.DeserializeObject<JiraIssuesUsingJql>(jiraIssues);
 
-                foreach(var i in issues)
-                {
-                    keys.Add(i.key);
-                }
+            foreach(JiraIssue issue in deserializedJiraIssues.issues)
+            {
+                keys.Add(issue.key);
             }
 
             return keys;

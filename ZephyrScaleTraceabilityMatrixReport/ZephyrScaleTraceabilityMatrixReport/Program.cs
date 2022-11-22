@@ -29,6 +29,8 @@ for (int i = 0; i < testCases.Count; i++)
     }
 }
 
+issueKeysFromTestCases = issueKeysFromTestCases.Distinct().ToList();
+
 //3. get jira issue keys using jql filter
 List<string> issueKeys = jira.GetJiraIssueKeysUsingJql(@"project = ""AUTO"" ORDER BY created DESC");
 

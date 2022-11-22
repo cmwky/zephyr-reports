@@ -31,35 +31,28 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
             return json;
         }
 
-        public List<string> GetIssuesUsingJql(string jql)
+        public string GetIssuesUsingJql(string jql)
         {
             string resource = $"{this.baseUrl}/search";
 
-            List<string> response = new();
-
-            //need to follow up on this
-            for (int i = 0; i < 10; i++)
+            HttpMethod method = HttpMethod.Post;
+            Dictionary<string, string> requestBodies = new Dictionary<string, string>
             {
-                HttpMethod method = HttpMethod.Post;
-                Dictionary<string, string> requestBodies = new Dictionary<string, string>
-                {
-                    { "jql", jql },
-                    { "maxResults", "100" },
-                    { "fieldsByKeys", "false"},
-                    { "startAt", $"{i*100}" }
-                };
+                { "jql", jql },
+                { "maxResults", "100" },
+                { "fieldsByKeys", "false"},
+                { "startAt", "0" }
+            };
 
-                string jsonBody = JsonConvert.SerializeObject(requestBodies);
-                StringContent requestbody = new(jsonBody, Encoding.UTF8, "application/json");
+            string jsonBody = JsonConvert.SerializeObject(requestBodies);
+            StringContent requestbody = new(jsonBody, Encoding.UTF8, "application/json");
 
-                base.GenerateHttpRequestMessage(resource, method, requestbody);
-                this.AddAuthToHttpRequestMessage();
+            base.GenerateHttpRequestMessage(resource, method, requestbody);
+            this.AddAuthToHttpRequestMessage();
 
-                string json = base.SendHttpRequest();
-                response.Add(json);
-            }
+            string json = base.SendHttpRequest();
 
-            return response;
+            return json;
         }
 
         public override void AddAuthToHttpRequestMessage()
