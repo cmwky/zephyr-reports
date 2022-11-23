@@ -1,4 +1,5 @@
 ﻿using FastExcel;
+using System.Diagnostics;
 using ZephyrScaleTraceabilityMatrixReport.Models;
 
 namespace ZephyrScaleTraceabilityMatrixReport.Exporters
@@ -65,6 +66,19 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
                 worksheet.Rows = rows;
                 fastExcel.Write(worksheet, "TestCaseList");
             }
+        }
+
+        public static void FormatReportWithPowerShell()
+        {
+            var psfile = "C:\\src\\zephyr-reports\\ZephyrScaleTraceabilityMatrixReport\\ZephyrScaleTraceabilityMatrixReport\\Exporters\\ReportFormatter.ps1";
+
+            var startInfo = new ProcessStartInfo()
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-file \"{psfile}\"",
+                UseShellExecute = false
+            };
+            Process.Start(startInfo);
         }
     }
 }

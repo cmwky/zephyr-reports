@@ -37,4 +37,4 @@ List<string> issueKeys = jira.GetJiraIssueKeysUsingJql(@"project = ""AUTO"" ORDE
 List<string> issuesWithNoTestCoverage = issueKeys.Except(issueKeysFromTestCases).ToList();
 
 ExcelExport.ExportToExcel(testCases, issueKeysFromTestCases);
-//ExcelExport.FormatReportData();
+ExcelExport.FormatReportWithPowerShell();
