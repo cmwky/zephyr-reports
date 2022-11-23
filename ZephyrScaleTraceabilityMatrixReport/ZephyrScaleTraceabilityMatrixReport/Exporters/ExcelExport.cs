@@ -35,7 +35,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
                 //test cases along the x-axis, row 1
                 for(int columnNumber = 0; columnNumber < testCases.Count; columnNumber++)
                 {
-                    cells.Add(new Cell(columnNumber + 1, testCases[columnNumber - 1].key));
+                    cells.Add(new Cell(columnNumber + 1, testCases[columnNumber].key));
                 }
 
                 rows.Insert(0, new Row(1, cells));
@@ -50,16 +50,19 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
                 rows = new List<Row>();
                 cells = new List<Cell>();
 
-                for (int rowNumber = 1; rowNumber < testCases.Count + 1; rowNumber++)
+                for (int rowNumber = 0; rowNumber < testCases.Count; rowNumber++)
                 {
-                    cells.Add(new Cell(1, testCases[rowNumber - 1].key));
+                    cells.Add(new Cell(rowNumber + 1, testCases[rowNumber].key));
 
-                    for (int columnNumber = 1; columnNumber < testCases[rowNumber - 1].jiraIssues.Count; columnNumber++)
+                    if(testCases[rowNumber].jiraIssues.Count > 0)
                     {
-                        cells.Add(new Cell(columnNumber + 1, testCases[rowNumber - 1].jiraIssues[columnNumber - 1].key));
+                        for (int columnNumber = 0; columnNumber < testCases[rowNumber].jiraIssues.Count; columnNumber++)
+                        {
+                            cells.Add(new Cell(columnNumber + 2, testCases[rowNumber].jiraIssues[columnNumber].key));
+                        }
                     }
-
-                    rows.Add(new Row(rowNumber, cells));
+                    
+                    rows.Add(new Row(rowNumber+1, cells));
                     cells = new List<Cell>();
                 }
 
