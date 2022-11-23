@@ -35,7 +35,8 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
                 //test cases along the x-axis, row 1
                 for(int columnNumber = 0; columnNumber < testCases.Count; columnNumber++)
                 {
-                    cells.Add(new Cell(columnNumber + 1, testCases[columnNumber].key));
+                    //starts at  column 2 due to jiraIssues being in column 1
+                    cells.Add(new Cell(columnNumber + 2, testCases[columnNumber].key));
                 }
 
                 rows.Insert(0, new Row(1, cells));
@@ -52,7 +53,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
 
                 for (int rowNumber = 0; rowNumber < testCases.Count; rowNumber++)
                 {
-                    cells.Add(new Cell(rowNumber + 1, testCases[rowNumber].key));
+                    cells.Add(new Cell(1, testCases[rowNumber].key));
 
                     if(testCases[rowNumber].jiraIssues.Count > 0)
                     {
@@ -62,7 +63,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
                         }
                     }
                     
-                    rows.Add(new Row(rowNumber+1, cells));
+                    rows.Add(new Row(rowNumber + 1, cells));
                     cells = new List<Cell>();
                 }
 
