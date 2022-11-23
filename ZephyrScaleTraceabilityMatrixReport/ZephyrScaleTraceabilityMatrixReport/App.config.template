@@ -4,10 +4,12 @@
     <!--ZephyrScale-->
     <add key="ZephyrScaleApiBaseUrl" value="" />
     <add key="ZephyrScaleApiKey" value="" />
+    <add key="ZephyrScaleProjectKey" value="" />
 
     <!--Jira-->
     <add key="JiraApiBaseUrl" value="" />
     <add key="JiraUserEmail" value="" />
     <add key="JiraApiToken" value="" />
+    <add key="JiraJqlFilter" value="" />
   </appSettings>
 </configuration>

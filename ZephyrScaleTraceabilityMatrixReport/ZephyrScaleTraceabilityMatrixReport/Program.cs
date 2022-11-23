@@ -1,4 +1,5 @@
-﻿using ZephyrScaleTraceabilityMatrixReport.Controllers;
+﻿using System.Configuration;
+using ZephyrScaleTraceabilityMatrixReport.Controllers;
 using ZephyrScaleTraceabilityMatrixReport.Exporters;
 using ZephyrScaleTraceabilityMatrixReport.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Models;
@@ -10,7 +11,7 @@ JiraController jira = new();
 ZephyrScaleController zephyr = new();
 
 //1. get all test cases belonging to a single project
-List<TestCase> testCases = zephyr.GetTestCases("CMW");
+List<TestCase> testCases = zephyr.GetTestCases(ConfigurationManager.AppSettings["ZephyrScaleProjectKey"]);
 
 //2. for each test case that has a linked jira issue,
 //   create JiraIssue objects and save the keys in a list.
@@ -32,9 +33,9 @@ for (int i = 0; i < testCases.Count; i++)
 issueKeysFromTestCases = issueKeysFromTestCases.Distinct().ToList();
 
 //3. get jira issue keys using jql filter
-List<string> issueKeys = jira.GetJiraIssueKeysUsingJql(@"project = ""AUTO"" ORDER BY created DESC");
+List<string> issueKeys = jira.GetJiraIssueKeysUsingJql(ConfigurationManager.AppSettings["JiraJqlFilter"]);
 
 List<string> issuesWithNoTestCoverage = issueKeys.Except(issueKeysFromTestCases).ToList();
 
 ExcelExport.ExportToExcel(testCases, issueKeysFromTestCases);
-ExcelExport.FormatReportWithPowerShell();
+//ExcelExport.FormatReportWithPowerShell();
