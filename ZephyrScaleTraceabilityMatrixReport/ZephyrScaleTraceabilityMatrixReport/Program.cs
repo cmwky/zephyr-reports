@@ -4,6 +4,8 @@ using ZephyrScaleTraceabilityMatrixReport.Exporters;
 using ZephyrScaleTraceabilityMatrixReport.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Models;
 
+ExcelExport.FormatReportWithPowerShell();
+
 HelperClass.ValidateAppConfig();
 
 //controllers

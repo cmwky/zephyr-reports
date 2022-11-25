@@ -6,10 +6,13 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
 {
     internal static class ExcelExport
     {
+        internal static readonly string workingDirectory = Environment.CurrentDirectory;
+        internal static readonly string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+
         public static void ExportToExcel(List<TestCase> testCases, List<string> issueIds)
         {
-            FileInfo templateFile = new FileInfo("C:\\Temp\\Template.xlsx");
-            FileInfo outputFile = new FileInfo("C:\\Temp\\Output.xlsx");
+            FileInfo templateFile = new FileInfo($"{projectDirectory}\\Reports\\Template.xlsx");
+            FileInfo outputFile = new FileInfo($"{projectDirectory}\\Reports\\Output.xlsx");
 
             using (FastExcel.FastExcel fastExcel = new FastExcel.FastExcel(templateFile, outputFile))
             {
@@ -70,12 +73,13 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
 
         public static void FormatReportWithPowerShell()
         {
-            var psfile = "C:\\src\\zephyr-reports\\ZephyrScaleTraceabilityMatrixReport\\ZephyrScaleTraceabilityMatrixReport\\Exporters\\ReportFormatter.ps1";
+            var psfile = $"{projectDirectory}\\Exporters\\ReportFormatter.ps1";
+            var reportPath = $"{projectDirectory}\\Reports\\Output.xlsx";
 
             var startInfo = new ProcessStartInfo()
             {
                 FileName = "powershell.exe",
-                Arguments = $"-file \"{psfile}\"",
+                Arguments = $"-file \"{psfile}\" -reportPath \"{reportPath}\"",
                 UseShellExecute = false
             };
             Process.Start(startInfo);
