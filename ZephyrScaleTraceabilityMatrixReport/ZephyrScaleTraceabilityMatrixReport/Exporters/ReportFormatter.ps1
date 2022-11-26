@@ -1,8 +1,8 @@
 ﻿#param([String]$reportPath)
 
-#$file = Open-ExcelPackage -Path $reportPath
+$file = Open-ExcelPackage -Path $reportPath
 
-$file = Open-ExcelPackage -Path "C:\src\zephyr-reports\ZephyrScaleTraceabilityMatrixReport\ZephyrScaleTraceabilityMatrixReport\Reports\Output.xlsx"
+#$file = Open-ExcelPackage -Path "C:\src\zephyr-reports\ZephyrScaleTraceabilityMatrixReport\ZephyrScaleTraceabilityMatrixReport\Reports\Output.xlsx"
 
 #worksheets
 $testCoverageMatrixWorksheet = $file.TestCoverageMatrix
