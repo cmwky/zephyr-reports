@@ -4,19 +4,29 @@ using ZephyrScaleTraceabilityMatrixReport.Exporters;
 using ZephyrScaleTraceabilityMatrixReport.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Models;
 
-ExcelExport.FormatReportWithPowerShell();
-
+/*
+ * Confirms that all values in App.config are provided.
+ * If not, program will terminate immediately and notify user of what's missing.
+ */
 HelperClass.ValidateAppConfig();
 
-//controllers
+/*
+ * Setup
+ */ 
 JiraController jira = new();
 ZephyrScaleController zephyr = new();
 
-//1. get all test cases belonging to a single project
+
+/*
+ * Get all test cases that belong to a project.
+ */
 List<TestCase> testCases = zephyr.GetTestCases(ConfigurationManager.AppSettings["ZephyrScaleProjectKey"]);
 
-//2. for each test case that has a linked jira issue,
-//   create JiraIssue objects and save the keys in a list.
+
+/*
+ * For each Jira issue that's linked to a test case,
+ * create a JiraIssue and save the keys to a distinct list.
+ */
 List<string> issueKeysFromTestCases = new();
 
 for (int i = 0; i < testCases.Count; i++)
@@ -31,13 +41,16 @@ for (int i = 0; i < testCases.Count; i++)
         }
     }
 }
-
 issueKeysFromTestCases = issueKeysFromTestCases.Distinct().ToList();
 
-//3. get jira issue keys using jql filter
+/*
+ * Get jira issue keys using jql filter
+ */
 List<string> issueKeys = jira.GetJiraIssueKeysUsingJql(ConfigurationManager.AppSettings["JiraJqlFilter"]);
 
-List<string> issuesWithNoTestCoverage = issueKeys.Except(issueKeysFromTestCases).ToList();
 
+/*
+ * Export data to Excel file and fill out traceability matrix
+ */
 ExcelExport.ExportToExcel(testCases, issueKeysFromTestCases);
-//ExcelExport.FormatReportWithPowerShell();
+ExcelExport.FormatReportWithPowerShell();

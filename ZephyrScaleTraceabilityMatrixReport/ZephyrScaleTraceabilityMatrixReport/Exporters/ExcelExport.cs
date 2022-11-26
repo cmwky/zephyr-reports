@@ -16,9 +16,9 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
 
             using (FastExcel.FastExcel fastExcel = new FastExcel.FastExcel(templateFile, outputFile))
             {
-                //
-                // TEST COVERAGE MATRIX WORKSHEET //
-                //
+                /*
+                 * TEST COVERAGE MATRIX WORKSHEET 
+                 */
                 Worksheet worksheet = new Worksheet();
                 List<Row> rows = new List<Row>();
                 List<Cell> cells = new List<Cell>();
@@ -43,9 +43,9 @@ namespace ZephyrScaleTraceabilityMatrixReport.Exporters
                 fastExcel.Write(worksheet, "TestCoverageMatrix");
 
 
-                //
-                // TESTCASE LIST WORKSHEET //
-                //
+                /*
+                 * TESTCASE LIST WORKSHEET
+                 */
                 worksheet = new Worksheet();
                 rows = new List<Row>();
                 cells = new List<Cell>();

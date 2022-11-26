@@ -40,7 +40,6 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
             return json;
         }
 
-        //to be overridden within each api context
         public virtual void AddAuthToHttpRequestMessage() { }
     }
 }
