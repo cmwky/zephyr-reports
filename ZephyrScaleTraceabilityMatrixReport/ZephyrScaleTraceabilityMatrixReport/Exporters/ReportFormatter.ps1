@@ -16,8 +16,8 @@ $jiraIssues = $testCaseListWorksheet.Cells | ? { $_.Address -notlike "A*"}
 $hash = @{}
 foreach($testcase in $testCases) {
 
-    $issuesToAdd = $jiraIssues | ?{$_.Address -like "*$($testcase.Address.Substring(1))"} | Select-Object -Property Value
-    $hash.Add($testcase.Value, $issuesToAdd)    
+    $issuesToAdd = $jiraIssues | ?{$_.Address -like "*$($testcase.Address.Substring(1))"} | Select-Object -Property Value | ForEach { "$($_)" }
+    $hash["$($testcase.Value)"] = $issuesToAdd  
 }
 
 #use hash table to fill out traceability matrix worksheet
@@ -30,7 +30,11 @@ foreach($issue in $matrixJiraIssues) {
     #along the x-axis
     foreach($testcase in $matrixTestCases) {
         
-        if($hash[$testcase].Contains($issue)) {
+        Write-Host "compare: $($hash["$($testcase.Value)"])  AND  $($issue.Value)"
+
+        if($hash["$($testcase.Value)"] -match $issue.Value) {
+            Write-Host $hash["$($testcase.Value)"]
+            Write-Host $issue.Value
             $testCoverageMatrixWorksheet.Cells["$($testcase.Address.Substring(0,1))$($issue.Address.Substring(1))"].Value = "X"
         }
     }
