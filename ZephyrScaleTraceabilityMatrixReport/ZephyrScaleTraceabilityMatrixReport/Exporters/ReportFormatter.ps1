@@ -1,5 +1,7 @@
 ﻿param([String]$reportPath)
 
+Install-Module -Name ImportExcel -RequiredVersion 7.4.1 -Verbose:$false -Force
+
 $file = Open-ExcelPackage -Path $reportPath
 
 #$file = Open-ExcelPackage -Path "C:\src\zephyr-reports\ZephyrScaleTraceabilityMatrixReport\ZephyrScaleTraceabilityMatrixReport\Reports\Output.xlsx"
