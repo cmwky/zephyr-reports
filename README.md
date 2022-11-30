@@ -26,6 +26,7 @@ The end result is a `.xlsx` workbook that contains two worksheets, one being a "
 
 ### How To Use
 
+0. Install PowerShell module [ImportExcel](https://www.powershellgallery.com/packages/ImportExcel/7.4.1).
 1. After cloning the repo, copy & paste `App.config.template` and rename the copied file to `App.config`, then fill out all the Jira and ZephyrScale values specific to your own setup.
 2. Launch the program.
 3. View the generated report at `\Reports\Output.xlsx`.
