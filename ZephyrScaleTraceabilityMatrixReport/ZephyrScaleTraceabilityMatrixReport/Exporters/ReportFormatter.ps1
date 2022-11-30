@@ -1,4 +1,4 @@
-﻿#param([String]$reportPath)
+﻿param([String]$reportPath)
 
 $file = Open-ExcelPackage -Path $reportPath
 
@@ -29,12 +29,8 @@ foreach($issue in $matrixJiraIssues) {
     
     #along the x-axis
     foreach($testcase in $matrixTestCases) {
-        
-        Write-Host "compare: $($hash["$($testcase.Value)"])  AND  $($issue.Value)"
-
+      
         if($hash["$($testcase.Value)"] -match $issue.Value) {
-            Write-Host $hash["$($testcase.Value)"]
-            Write-Host $issue.Value
             $testCoverageMatrixWorksheet.Cells["$($testcase.Address.Substring(0,1))$($issue.Address.Substring(1))"].Value = "X"
         }
     }
