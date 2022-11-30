@@ -37,6 +37,18 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
             return json;
         }
 
+        public string GetTestExecutionStatuses()
+        {
+            string resource = $"{this.baseUrl}/testcases/statusType=TEST_EXECUTION";
+            HttpMethod method = HttpMethod.Get;
+
+            base.GenerateHttpRequestMessage(resource, method); 
+            this.AddAuthToHttpRequestMessage();
+
+            string json = base.SendHttpRequest();
+            return json;
+        }
+
         public override void AddAuthToHttpRequestMessage()
         {
             base.request.Headers.Add("Authorization", "Bearer " + this.apiKey);
