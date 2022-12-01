@@ -6,22 +6,14 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 {
     internal class JiraApiContext : BaseContext
     {
-        internal readonly string? baseUrl;
-        internal readonly string? userEmail;
-        internal readonly string? apiToken;
-        internal readonly string? encodedBasicAuth;
-
-        public JiraApiContext()
-        {
-            this.baseUrl = ConfigurationManager.AppSettings["JiraApiBaseUrl"];
-            this.userEmail = ConfigurationManager.AppSettings["JiraUserEmail"];
-            this.apiToken = ConfigurationManager.AppSettings["JiraApiToken"];
-            this.encodedBasicAuth = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(this.userEmail + ":" + this.apiToken)); ;
-        }
+        private static readonly string baseUrl = ConfigurationManager.AppSettings["JiraApiBaseUrl"];
+        private static readonly string userEmail = ConfigurationManager.AppSettings["JiraUserEmail"];
+        private static readonly string apiToken = ConfigurationManager.AppSettings["JiraApiToken"];
+        private static readonly string encodedBasicAuth = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(userEmail + ":" + apiToken));
 
         public string GetIssue(string issueId)
         {
-            string resource = $"{this.baseUrl}/issue/{issueId}";
+            string resource = $"{baseUrl}/issue/{issueId}";
             HttpMethod method = HttpMethod.Get; 
 
             base.GenerateHttpRequestMessage(resource, method);
@@ -33,10 +25,10 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 
         public string GetIssuesUsingJql(string jql)
         {
-            string resource = $"{this.baseUrl}/search";
+            string resource = $"{baseUrl}/search";
 
             HttpMethod method = HttpMethod.Post;
-            Dictionary<string, string> requestBodies = new Dictionary<string, string>
+            Dictionary<string, string> requestBodies = new()
             {
                 { "jql", jql },
                 { "maxResults", "100" },
@@ -57,7 +49,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 
         public override void AddAuthToHttpRequestMessage()
         {
-            base.request?.Headers.Add("Authorization", "Basic " + this.encodedBasicAuth);
+            base.Request.Headers.Add("Authorization", "Basic " + encodedBasicAuth);
         }
     }
 }

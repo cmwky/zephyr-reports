@@ -7,6 +7,7 @@
     <add key="ZephyrScaleProjectKey" value="" />
 
     <!--Jira-->
+    <add key ="JiraBaseUrl" value =""/>
     <add key="JiraApiBaseUrl" value="" />
     <add key="JiraUserEmail" value="" />
     <add key="JiraApiToken" value="" />
