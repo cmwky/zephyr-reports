@@ -27,15 +27,10 @@ List<TestCase> testCases = zephyr.GetTestCases(projectKey: zephyrScaleProjectKey
 
 
 /*
- * For each linked issue to a test case, create a JiraIssue
+ * Create JiraIssues from testCase[].links.issues
  */
-for (int i = 0; i < testCases.Count; i++)
-{
-    if (testCases[i].Links.issues.Count > 0)
-    {
-        testCases[i].JiraIssues = jira.GetJiraIssuesFromLinks(testCases[i].Links);
-    }
-}
+zephyr.PopulateJiraIssuesFromLinks(ref testCases);
+
 
 var t = 1;
 
