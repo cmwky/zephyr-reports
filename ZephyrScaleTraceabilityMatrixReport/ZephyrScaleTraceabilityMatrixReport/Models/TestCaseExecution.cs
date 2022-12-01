@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ZephyrScaleTraceabilityMatrixReport.Models
 {
-    internal class TestCaseExecutionStatus
+    internal class TestCaseExecution
     {
-        public int statusId { get; set; }
-        public string statusName { get; set; }
-        public string color { get; set; }
+        public long id { get; set; }
+        public string key { get; set; }
+        public TestCaseExecutionStatus status { get; set; }
     }
 }

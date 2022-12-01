@@ -18,8 +18,9 @@ ZephyrScaleController zephyr = new();
 
 
 /*
- * Get all test cases that belong to a project.
+ * Get all test cases and test case execution statuses that belong to a project.
  */
+//List<TestCaseExecutionStatus> testCaseExecutionStatuses = zephyr.GetTestCaseExecutionStatuses();
 List<TestCase> testCases = zephyr.GetTestCases(ConfigurationManager.AppSettings["ZephyrScaleProjectKey"]);
 
 

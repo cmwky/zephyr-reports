@@ -9,7 +9,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Models
         public string name { get; set; }
         public string objective { get; set; }
         public List<JiraIssue> jiraIssues { get; set; }
-        public List<TestCaseExecution> executions { get; set; }
+        public List<TestCaseExecutionStatus> executionStatuses { get; set; }
 
         public TestCase()
         {

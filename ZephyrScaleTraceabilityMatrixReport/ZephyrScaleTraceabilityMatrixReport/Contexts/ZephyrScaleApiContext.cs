@@ -37,9 +37,10 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
             return json;
         }
 
+        //only default statuses are currently supported
         public string GetTestExecutionStatuses()
         {
-            string resource = $"{this.baseUrl}/testcases/statusType=TEST_EXECUTION";
+            string resource = $"{this.baseUrl}/statuses?statusType=TEST_EXECUTION";
             HttpMethod method = HttpMethod.Get;
 
             base.GenerateHttpRequestMessage(resource, method); 
