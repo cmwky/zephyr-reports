@@ -28,5 +28,20 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 
             return testCaseCollection;
         }
+
+        public void PopulateJiraIssuesFromLinks(ref List<TestCase> testCases)
+        {
+            JiraController jiraController = new();
+
+            for (int i = 0; i < testCases.Count; i++)
+            {
+                if (testCases[i].Links.issues.Count > 0)
+                {
+                    testCases[i].JiraIssues = jiraController.GetJiraIssuesFromLinks(testCases[i].Links);
+                }
+            }
+
+            return;
+        }
     }
 }

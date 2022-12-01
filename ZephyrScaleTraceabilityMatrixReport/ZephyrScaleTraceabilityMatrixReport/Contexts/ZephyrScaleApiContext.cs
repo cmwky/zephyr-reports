@@ -4,26 +4,20 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 {
     internal class ZephyrScaleApiContext : BaseContext
     {
-        private readonly string? baseUrl;
-        private readonly string? apiKey;
+        private readonly string baseUrl = ConfigurationManager.AppSettings["ZephyrScaleApiBaseUrl"];
+        private readonly string apiKey = ConfigurationManager.AppSettings["ZephyrScaleApiKey"];
 
-        public ZephyrScaleApiContext()
-        {
-            this.baseUrl = ConfigurationManager.AppSettings["ZephyrScaleApiBaseUrl"];
-            this.apiKey = ConfigurationManager.AppSettings["ZephyrScaleApiKey"];
-        }
+        //public string GetTestCase(string testCaseKey)
+        //{
+        //    string resource = $"{this.baseUrl}/testcases/{testCaseKey}";
+        //    HttpMethod method = HttpMethod.Get;
 
-        public string GetTestCase(string testCaseKey)
-        {
-            string resource = $"{this.baseUrl}/testcases/{testCaseKey}";
-            HttpMethod method = HttpMethod.Get;
+        //    base.GenerateHttpRequestMessage(resource, method);
+        //    this.AddAuthToHttpRequestMessage();
 
-            base.GenerateHttpRequestMessage(resource, method);
-            this.AddAuthToHttpRequestMessage();
-
-            string json = base.SendHttpRequest();
-            return json;
-        }
+        //    string json = base.SendHttpRequest();
+        //    return json;
+        //}
 
         public string GetTestCases(string projectKey, string maxResults = "100", string startAt = "0")
         {
@@ -39,7 +33,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 
         public override void AddAuthToHttpRequestMessage()
         {
-            base.request.Headers.Add("Authorization", "Bearer " + this.apiKey);
+            base.Request.Headers.Add("Authorization", "Bearer " + this.apiKey);
         }
     }
 }

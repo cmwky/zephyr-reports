@@ -3,24 +3,19 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
 {
     internal class BaseContext
     {
-        public HttpClient httpClient { get; }
-        public HttpRequestMessage? request { get; set; }
-
-        public BaseContext()
-        {
-            this.httpClient = new();
-        }
+        protected HttpClient HttpClient { get; } = new ();
+        protected HttpRequestMessage Request = new();
 
         public void GenerateHttpRequestMessage(string resource, HttpMethod method, StringContent? body = null)
         {
-            this.request = new HttpRequestMessage(method, new Uri(resource));
+            this.Request = new HttpRequestMessage(method, new Uri(resource));
             
             if(body is not null)
             {
-                this.request.Content = body;
+                this.Request.Content = body;
             }
 
-            this.request.Headers.Accept.Add(new("application/json"));
+            this.Request.Headers.Accept.Add(new("application/json"));
 
             return;
         }
@@ -29,7 +24,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Contexts
         {
             string json;
 
-            using (HttpResponseMessage response = this.httpClient.SendAsync(this.request).GetAwaiter().GetResult())
+            using (HttpResponseMessage response = HttpClient.SendAsync(Request).GetAwaiter().GetResult())
             {
                 using (HttpContent content = response.Content)
                 {

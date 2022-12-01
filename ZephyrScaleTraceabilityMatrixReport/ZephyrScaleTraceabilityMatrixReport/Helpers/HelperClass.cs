@@ -6,7 +6,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Helpers
     {
         public static void ValidateAppConfig()
         {
-            List<string> missingValues = new List<string>();
+            List<string> missingValues = new();
             foreach (string entry in ConfigurationManager.AppSettings)
             {
                 if (ConfigurationManager.AppSettings[entry]?.Length == 0)

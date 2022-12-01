@@ -1,18 +1,21 @@
 ﻿using System.Configuration;
 using ZephyrScaleTraceabilityMatrixReport.Controllers;
-using ZephyrScaleTraceabilityMatrixReport.Exporters;
+//using ZephyrScaleTraceabilityMatrixReport.Exporters;
 using ZephyrScaleTraceabilityMatrixReport.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Models;
 
+
 /*
- * Confirms that all values in App.config are provided.
- * If not, program will terminate immediately and notify user of what's missing.
+ * Verifies that all values in App.config have been provided.
+ * If not, user will be notified of what's missing and the program will exit entirely.
  */
 HelperClass.ValidateAppConfig();
 
+
 /*
  * Setup
- */ 
+ */
+string? zephyrScaleProjectKey = ConfigurationManager.AppSettings["ZephyrScaleProjectKey"];
 JiraController jira = new();
 ZephyrScaleController zephyr = new();
 
@@ -20,37 +23,19 @@ ZephyrScaleController zephyr = new();
 /*
  * Get all test cases that belong to a project.
  */
-List<TestCase> testCases = zephyr.GetTestCases(ConfigurationManager.AppSettings["ZephyrScaleProjectKey"]);
+List<TestCase> testCases = zephyr.GetTestCases(projectKey: zephyrScaleProjectKey);
 
 
 /*
- * For each Jira issue that's linked to a test case,
- * create a JiraIssue and save the keys to a distinct list.
+ * Create JiraIssues from testCase[].links.issues
  */
-List<string> issueKeysFromTestCases = new();
+zephyr.PopulateJiraIssuesFromLinks(ref testCases);
 
-for (int i = 0; i < testCases.Count; i++)
-{
-    if (testCases[i].links.issues.Count > 0)
-    {
-        testCases[i].jiraIssues = jira.GetJiraIssuesFromLinks(testCases[i].links);
 
-        foreach(JiraIssue issue in testCases[i].jiraIssues)
-        {
-            issueKeysFromTestCases.Add(issue.key);
-        }
-    }
-}
-issueKeysFromTestCases = issueKeysFromTestCases.Distinct().ToList();
-
-/*
- * Get jira issue keys using jql filter
- */
-List<string> issueKeys = jira.GetJiraIssueKeysUsingJql(ConfigurationManager.AppSettings["JiraJqlFilter"]);
-
+var t = 1;
 
 /*
  * Export data to Excel file and fill out traceability matrix
  */
-ExcelExport.ExportToExcel(testCases, issueKeysFromTestCases);
-ExcelExport.FormatReportWithPowerShell();
+//ExcelExport.ExportToExcel(testCases/*, issueKeysFromTestCases*/);
+//ExcelExport.FormatReportWithPowerShell();

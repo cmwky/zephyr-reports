@@ -3,16 +3,15 @@ namespace ZephyrScaleTraceabilityMatrixReport.Models
 {
     internal class TestCase
     {
-        public int id;
-        public string key;
-        public Links links;
-        public string name;
-        public string objective;
-        public List<JiraIssue> jiraIssues;
+        public int Id;
+        public string Key;
+        public Links Links;
+        public string Name;
+        public List<JiraIssue> JiraIssues;
 
         public TestCase()
         {
-            this.jiraIssues = new List<JiraIssue>();
+            this.JiraIssues = new List<JiraIssue>();
         }
     }
 }
