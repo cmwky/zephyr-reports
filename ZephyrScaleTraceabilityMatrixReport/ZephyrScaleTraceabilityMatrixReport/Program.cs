@@ -2,7 +2,7 @@
 using ZephyrScaleTraceabilityMatrixReport.Controllers;
 //using ZephyrScaleTraceabilityMatrixReport.Exporters;
 using ZephyrScaleTraceabilityMatrixReport.Helpers;
-using ZephyrScaleTraceabilityMatrixReport.Models;
+using ZephyrScaleTraceabilityMatrixReport.Models.ZephyrScale;
 
 
 /*
@@ -32,7 +32,9 @@ List<TestCase> testCases = zephyr.GetTestCases(projectKey: zephyrScaleProjectKey
 zephyr.PopulateJiraIssuesFromLinks(ref testCases);
 
 
-var t = 1;
+
+
+int breakPointLine = 1;
 
 /*
  * Export data to Excel file and fill out traceability matrix

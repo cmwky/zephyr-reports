@@ -1,14 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Web.Helpers;
 using ZephyrScaleTraceabilityMatrixReport.Contexts;
-using ZephyrScaleTraceabilityMatrixReport.Models;
+using ZephyrScaleTraceabilityMatrixReport.Models.ZephyrScale;
 
 namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 {
     internal class ZephyrScaleController
     {
-        private ZephyrScaleApiContext zephyrScaleContext = new();
+        private readonly ZephyrScaleApiContext zephyrScaleContext = new();
 
         public List<TestCase> GetTestCases(string projectKey)
         {
@@ -42,6 +41,11 @@ namespace ZephyrScaleTraceabilityMatrixReport.Controllers
             }
 
             return;
+        }
+
+        public List<TestCaseExecution> GetTestCasesExecutions(string projectKey) 
+        {
+            
         }
     }
 }

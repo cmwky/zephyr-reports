@@ -1,5 +1,4 @@
-﻿
-namespace ZephyrScaleTraceabilityMatrixReport.Models
+﻿namespace ZephyrScaleTraceabilityMatrixReport.Models.Jira
 {
     internal class JiraIssueFields
     {

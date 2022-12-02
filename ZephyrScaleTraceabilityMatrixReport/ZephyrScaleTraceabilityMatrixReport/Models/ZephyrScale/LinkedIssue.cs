@@ -1,5 +1,4 @@
-﻿
-namespace ZephyrScaleTraceabilityMatrixReport.Models
+﻿namespace ZephyrScaleTraceabilityMatrixReport.Models.ZephyrScale
 {
     internal class LinkedIssue
     {

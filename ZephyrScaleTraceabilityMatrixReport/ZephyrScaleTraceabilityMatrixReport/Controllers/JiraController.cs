@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ZephyrScaleTraceabilityMatrixReport.Contexts;
-using ZephyrScaleTraceabilityMatrixReport.Models;
+using ZephyrScaleTraceabilityMatrixReport.Models.Jira;
+using ZephyrScaleTraceabilityMatrixReport.Models.ZephyrScale;
 
 namespace ZephyrScaleTraceabilityMatrixReport.Controllers
 {

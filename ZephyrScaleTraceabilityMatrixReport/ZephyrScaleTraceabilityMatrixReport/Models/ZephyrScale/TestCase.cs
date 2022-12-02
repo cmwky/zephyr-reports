@@ -1,5 +1,6 @@
-﻿
-namespace ZephyrScaleTraceabilityMatrixReport.Models
+﻿using ZephyrScaleTraceabilityMatrixReport.Models.Jira;
+
+namespace ZephyrScaleTraceabilityMatrixReport.Models.ZephyrScale
 {
     internal class TestCase
     {
@@ -11,7 +12,7 @@ namespace ZephyrScaleTraceabilityMatrixReport.Models
 
         public TestCase()
         {
-            this.JiraIssues = new List<JiraIssue>();
+            JiraIssues = new List<JiraIssue>();
         }
     }
 }
